@@ -2,7 +2,7 @@ import { patchWebSocket, setInitialized } from "./websocket";
 import { removeExistingOverlay, showOverlay } from "./overlay";
 import { classifyFurryType } from "./classify";
 import type { DevOverlayMessage } from "./types";
-
+import ErrorTest from "./ErrorTest";
 
 export function initFurryDevOverlay(): void {
   // 标记已经初始化
@@ -42,5 +42,5 @@ export function initFurryDevOverlay(): void {
 
 }
 
-export { removeExistingOverlay };
+export { removeExistingOverlay, ErrorTest };
 export type { FurryImageType, DevOverlayMessage } from "./types";
