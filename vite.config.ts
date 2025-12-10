@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'index.ts'),
+      entry: path.resolve(__dirname, 'src/index.tsx'),
       name: 'ReactFurryError',
       fileName: (format) => `react-furry-error.${format}.js`,
       formats: ['es', 'umd']

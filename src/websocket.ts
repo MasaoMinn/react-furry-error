@@ -1,8 +1,20 @@
-import { classifyError } from "./classify";
+import { classifyFurryType } from "./classify";
 import type { DevOverlayMessage } from "./types";
-import { showOverlay, getConfig } from "./overlay";
+import { showOverlay } from "./overlay";
+
+// 标记是否已经调用了initFurryDevOverlay
+let isInitialized = false;
+
+// 导出初始化标记函数
+export function setInitialized(): void {
+  isInitialized = true;
+}
 
 export function patchWebSocket(): void {
+  if (!isInitialized) {
+    return;
+  }
+
   const OriginalWS = window.WebSocket;
 
   class InterceptedWS extends OriginalWS {
@@ -44,20 +56,15 @@ export function patchWebSocket(): void {
 }
 
 function handleDevError(message: string, stack?: string): void {
-  // 获取全局配置
-  const config = getConfig();
 
-  // 只有在enabled为true时才显示自定义错误覆盖层
-  if (config?.enabled !== false) {
-    const type = classifyError(message);
 
-    const info: DevOverlayMessage = {
-      type,
-      message,
-      stack,
-    };
+  const type = classifyFurryType(message);
 
-    showOverlay(info);
-  }
-  // enabled为false时，不做任何处理，让框架原有的错误遮罩显示
+  const info: DevOverlayMessage = {
+    type,
+    message,
+    stack,
+  };
+
+  showOverlay(info);
 }

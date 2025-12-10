@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["*.ts"],
+  "include": ["*.ts", "src/index.tsx", "src/overlay.ts", "src/types.ts", "src/websocket.ts"],
   "exclude": ["node_modules", "dist"]
 }
