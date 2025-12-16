@@ -23,7 +23,8 @@ export function classifyFurryType(message: string): FurryImageType {
     text.includes("markup") ||
     text.includes("unmounted") ||
     text.includes("container is null") ||
-    text.includes("invalid react element")
+    text.includes("invalid react element") ||
+    text.includes("properties")
   ) {
     return "dom-broken";
   }
