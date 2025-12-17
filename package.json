@@ -2,35 +2,40 @@
   "name": "react-furry-error",
   "version": "1.0.0",
   "description": "A cute and helpful error overlay for React development",
+
   "type": "module",
-  "main": "./dist/react-furry-error.umd.js",
-  "module": "./dist/react-furry-error.es.js",
-  "types": "./dist/types/index.d.ts",
+
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
+
   "files": [
     "dist",
-    "README.md",
-    "package.json"
+    "README.md"
   ],
+
+  "sideEffects": false,
+
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
-  "keywords": [
-    "react",
-    "error",
-    "overlay",
-    "development",
-    "furry",
-    "cute"
-  ],
-  "author": "",
-  "license": "MIT",
+
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
+
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.48",
@@ -39,8 +44,6 @@
     "vite": "^5.0.11",
     "vite-plugin-dts": "^3.7.0"
   },
-  "repository": {
-    "type": "git",
-    "url": ""
-  }
+
+  "license": "MIT"
 }

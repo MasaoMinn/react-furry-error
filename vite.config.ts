@@ -1,38 +1,47 @@
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
-import path from 'path';
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     dts({
       insertTypesEntry: true,
-      tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
-      outDir: './dist/types'
+      outDir: "dist"
     })
   ],
+
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.tsx'),
-      name: 'ReactFurryError',
-      fileName: (format) => `react-furry-error.${format}.js`,
-      formats: ['es', 'umd']
+      entry: path.resolve(__dirname, "src/index.ts"),
+      name: "ReactFurryError",
+      formats: ["es", "cjs"],
+      fileName: (format) =>
+        format === "es" ? "index.es.js" : "index.cjs.js"
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: [
+        "react",
+        "react-dom",
+        "react-dom/client"
+      ],
       output: {
         globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
+          react: "React",
+          "react-dom": "ReactDOM",
+          "react-dom/client": "ReactDOM"
         }
       }
     },
-    assetsDir: 'emotes',
-    outDir: 'dist'
+
+
+    outDir: "dist",
+    assetsDir: "assets",
+    emptyOutDir: true
   },
+
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './')
+      "@": path.resolve(__dirname, "src")
     }
   }
 });
