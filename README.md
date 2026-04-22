@@ -1,5 +1,10 @@
 # React Furry Error
 
+## Documents
+
+[文档](https://kcnhl2uub4k0.feishu.cn/wiki/WkOUwdykxiXjx8kLNH3chhpQn0c)
+[Document](https://kcnhl2uub4k0.feishu.cn/wiki/QSbuwMOSciuFZhkeYDqccJytnQc "react-furry-error")
+
 **Languages**
 - 🇺🇸 English (current)
 - 🇨🇳 [简体中文](./README_zh.md)
@@ -37,8 +42,37 @@ npm install react-furry-error --save-dev
 ```typescript
 import { initFurryDevOverlay } from 'react-furry-error';
 
-initFurryDevOverlay();
+if (process.env.NODE_ENV === "development") {
+  initFurryDevOverlay();
+}
 ```
+
+### Next.js (App Router)
+
+Call it in a client component (`"use client"`), for example in `useEffect`.
+
+```tsx
+"use client";
+
+import { useEffect } from "react";
+import { initFurryDevOverlay } from "react-furry-error";
+
+export function DevOverlayBootstrap() {
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      initFurryDevOverlay();
+    }
+  }, []);
+
+  return null;
+}
+```
+
+### About `--save-dev`
+
+`react-furry-error` is intended for development only, so installing with `--save-dev` is recommended.
+
+If your build environment skips `devDependencies` (for example `npm ci --omit=dev`), do not import this package in that build, or make sure `devDependencies` are installed during build.
 
 ## Error Types Supported
 
@@ -77,6 +111,4 @@ createRoot(document.getElementById('root')!).render(
 
 MIT
 
-## Get More
 
-[react-furry-error](https://masaominn.github.io/react-furry-error/introduction "react-furry-error")

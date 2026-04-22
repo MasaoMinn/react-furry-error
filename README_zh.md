@@ -3,7 +3,7 @@
 **语言**
 - 🇨🇳 简体中文（当前）
 - 🇺🇸 [English](./README.md)
-- 🇯🇵 [日本語](./README_ja.md)
+- 🇯🇵 [日本語](./README_jp.md)
 
 一个可爱且实用的React开发错误覆盖层，带有毛茸茸主题的表情！
 
@@ -38,8 +38,37 @@ npm install react-furry-error --save-dev
 ```typescript
 import { initFurryDevOverlay } from 'react-furry-error';
 
-initFurryDevOverlay();
+if (process.env.NODE_ENV === "development") {
+  initFurryDevOverlay();
+}
 ```
+
+### Next.js（App Router）
+
+请在客户端组件（`"use client"`）中调用，例如放到 `useEffect` 里：
+
+```tsx
+"use client";
+
+import { useEffect } from "react";
+import { initFurryDevOverlay } from "react-furry-error";
+
+export function DevOverlayBootstrap() {
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      initFurryDevOverlay();
+    }
+  }, []);
+
+  return null;
+}
+```
+
+### 关于 `--save-dev`
+
+`react-furry-error` 仅用于开发环境，推荐使用 `--save-dev` 安装。
+
+如果你的构建环境会跳过 `devDependencies`（例如 `npm ci --omit=dev`），请不要在该构建流程中导入本包，或确保构建阶段会安装 `devDependencies`。
 
 ## 支持的错误类型
 

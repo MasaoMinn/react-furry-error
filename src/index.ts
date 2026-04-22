@@ -4,7 +4,19 @@ import { classifyFurryType } from "./classify";
 import type { DevOverlayMessage } from "./types";
 import ErrorTest from "./ErrorTest";
 
+let hasAttachedGlobalHandlers = false;
+
 export function initFurryDevOverlay(): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  if (hasAttachedGlobalHandlers) {
+    return;
+  }
+
+  hasAttachedGlobalHandlers = true;
+
   // 标记已经初始化
   setInitialized();
 

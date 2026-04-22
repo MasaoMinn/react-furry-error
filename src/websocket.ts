@@ -4,6 +4,7 @@ import { showOverlay } from "./overlay";
 
 // 标记是否已经调用了initFurryDevOverlay
 let isInitialized = false;
+let hasPatchedWebSocket = false;
 
 // 导出初始化标记函数
 export function setInitialized(): void {
@@ -14,6 +15,16 @@ export function patchWebSocket(): void {
   if (!isInitialized) {
     return;
   }
+
+  if (typeof window === "undefined" || typeof window.WebSocket === "undefined") {
+    return;
+  }
+
+  if (hasPatchedWebSocket) {
+    return;
+  }
+
+  hasPatchedWebSocket = true;
 
   const OriginalWS = window.WebSocket;
 
